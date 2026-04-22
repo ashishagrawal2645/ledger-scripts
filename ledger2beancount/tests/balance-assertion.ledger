@@ -1,0 +1,114 @@
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+account Assets:Test
+account Assets:Test2
+account Assets:Test3
+account Assets:Test4
+account Assets:Test5
+account Assets:Test6
+account Assets:Test7
+account Assets:Test8
+account Assets:Test9
+account Income:Test
+account Equity:Opening-Balance
+
+commodity EUR
+commodity $
+
+2018-03-23 * Test 1
+    Assets:Test                        10.00 EUR = 10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-24 * Test 2
+    Assets:Test                        10.00 EUR = 20.00 EUR
+    Equity:Opening-Balance            -10.00 EUR = -20.00 EUR
+
+2019-01-18 * Assertion with commodity mapping
+    Assets:Test2                          $10.00 = $10.00
+    Equity:Opening-Balance               -$10.00
+
+2019-01-18 KFC
+    Expenses:Food                         $20.00
+    Assets:Cash                          $-20.00 = $-20.00
+
+2019-01-19 KFC
+    Expenses:Food                         $20.00
+    Expenses:Drinks                        $3.00
+    Assets:Cash                                  = $-43.00
+
+; account name needs mapping
+2019-01-20 KFC
+    Expenses:Food and drink              $20.00
+    Expenses:Tips                         $3.00
+    Assets:wallet cash                          = $-23.00
+
+2019-01-21 Adjustment
+    Assets:Cash                                 = $500.00
+    Equity:Adjustments
+
+2019-01-25 * Balance assertion with comment
+    Assets:Test3                       10.00 EUR = 10.00 EUR ; comment
+    Equity:Opening-Balance            -10.00 EUR
+
+2019-01-25 * Balance assertion with tag
+    Assets:Test4                       10.00 EUR = 10.00 EUR ; :foo:
+    Equity:Opening-Balance            -10.00 EUR
+
+2019-01-29 * Balance assertion with metadata
+    Assets:Test5                       10.00 EUR = 10.00 EUR ; foo: bar
+    Equity:Opening-Balance            -10.00 EUR
+
+2019-01-29 Adjustment
+    ; :foo:
+    Assets:Test6                                = $500.00
+    Equity:Adjustments
+
+2019-04-20 Wallet
+    Assets:Wallet                     500.00 THB
+    Equity:Opening-Balance
+
+2019-04-28 Food
+    Expenses:Food                      10.00 THB
+    Assets:Wallet                                = 490.00 THB
+
+2020-02-15 Specify amount
+    Assets:Test7                       20.00 EUR
+    Equity:Opening-Balance            -20.00 EUR
+
+2020-02-15 * Balance assertion with 0 value
+    Assets:Test7                        0.00 EUR = 20.00 EUR
+
+2020-02-15 Specify amount
+    Assets:Test8                       30.00 EUR
+    Equity:Opening-Balance            -30.00 EUR
+
+2020-02-15 * Balance assignment with a single posting
+    Assets:Test8                                 = 30.00 EUR
+
+2020-02-15 * Balance assignment with a single posting
+    Assets:Test8                                 = 30.00 EUR
+
+2020-02-15 * Balance assignment with a single posting
+    Assets:Test8                               0 = 30.00 EUR
+
+2020-02-15 * Balance assignment with a single posting
+    Assets:Test8                            0.00 = 30.00 EUR
+
+2020-02-15 * Balance assignment with a single posting
+    Assets:Test8                        0.00 EUR = 30.00 EUR
+
+2020-02-15 Specify amount
+    Assets:Test9                       40.00 EUR
+    Equity:Opening-Balance            -40.00 EUR
+
+bucket Income:Test
+
+2020-02-15 * Balance assertion with a single posting - use bucket to balance
+    Assets:Test9                        5.00 EUR = 45.00 EUR
+
+2020-06-22 * Balance assignment with inline math
+    Assets:Test10    1 GBP = (0.25 GBP + 0.75 GBP)
+    Assets:Test11
+

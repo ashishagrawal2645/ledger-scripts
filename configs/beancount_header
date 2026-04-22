@@ -1,0 +1,9 @@
+option "inferred_tolerance_default" "*:0.99"
+option "booking_method" "FIFO"
+1970-01-01 custom "fava-option" "show-accounts-with-zero-balance" "false"
+1970-01-01 custom "fava-option" "show-accounts-with-zero-transactions" "false"
+1970-01-01 custom "fava-option" "language" "en"
+1970-01-01 custom "fava-option" "locale" "en_IN"
+1970-01-01 custom "fava-option" "fiscal-year-end" "03-31"
+1970-01-01 custom "fava-option" "auto-reload" "true"
+

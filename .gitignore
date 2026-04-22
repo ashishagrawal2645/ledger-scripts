@@ -1,0 +1,8 @@
+playground/*
+temp.beancount
+*.log
+.vscode/
+scripts/reporting/investments/__pycache__/
+amazon-pay-gc-automation/node_modules
+scripts/reporting/portfolio/__pycache__/
+.DS_Store

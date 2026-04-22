@@ -1,0 +1,90 @@
+; SPDX-FileCopyrightText: © 2019 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+2012-04-10 My Broker
+    Assets:Brokerage            10 AAPL @ =$50.00
+    Assets:Brokerage:Cash       $-500.00
+
+2012-04-11 My Broker
+    Assets:Brokerage            10 AAPL {=$50.00}
+    Assets:Brokerage:Cash       $-500.00
+
+; Only apply fixated to CAD, not to EUR
+
+apply fixed CAD $0.90
+
+2012-04-10 Lunch in Canada
+    Assets:Wallet           -15.50 CAD {$0.20}
+    Expenses:Food            15.50 CAD {$0.20}
+
+2012-04-10 Lunch in Canada
+    Assets:Wallet           -15.50 CAD
+    Expenses:Food            15.50 CAD
+
+2012-04-11 Second day Dinner in Canada
+    Assets:Wallet           -25.75 CAD
+    Expenses:Food            25.75 CAD
+
+2012-04-11 Paid in EUR
+    Assets:Wallet           -25.75 EUR
+    Expenses:Food            25.75 EUR
+
+2012-04-11 Paid in EUR
+    Assets:Wallet           -25.75 EUR
+    Expenses:Food
+
+end apply fixed
+
+; Apply fixated to CAD and EUR
+
+apply fixed CAD $0.90
+apply fixed EUR 0.40 CAD
+
+2012-04-10 Lunch in Canada
+    Assets:Wallet           -15.50 CAD {$0.20}
+    Expenses:Food            15.50 CAD {$0.20}
+
+2012-04-10 Lunch in Canada
+    Assets:Wallet           -15.50 CAD
+    Expenses:Food            15.50 CAD
+
+2012-04-11 Second day Dinner in Canada
+    Assets:Wallet           -25.75 CAD
+    Expenses:Food            25.75 CAD
+
+2012-04-11 Second day Dinner in Canada
+    Assets:Wallet           -25.75 CAD
+    Expenses:Food
+
+2012-04-11 Paid in EUR
+    Assets:Wallet           -25.75 EUR
+    Expenses:Food            25.75 EUR
+
+2012-04-11 Paid in EUR
+    Assets:Wallet           -25.75 EUR
+    Expenses:Food
+
+end apply fixed
+end apply fixed
+
+apply rate CAD $0.85
+
+2012-04-10 Lunch in Canada
+    Assets:Wallet           -15.50 CAD {$0.20}
+    Expenses:Food            15.50 CAD {$0.20}
+
+2012-04-10 Lunch in Canada
+    Assets:Wallet           -15.50 CAD
+    Expenses:Food            15.50 CAD
+
+end apply fixed
+
+2020-10-02 * Fixated price should become a cost in beancount
+    Expenses:Food          100.00 PHP @ =1.76 EUR
+    Assets:Wallet
+
+2020-10-02 * Fixated price should become a cost in beancount (despite commodity_is_currency)
+    Assets:Test               1000 AA @ =5.00 EUR
+    Assets:Test
+

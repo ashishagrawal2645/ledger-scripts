@@ -1,0 +1,26 @@
+---
+beancount_header: accounts.header
+
+convert_virtual: true
+
+account_map:
+  Assets:♚♛♕♔: Assets:Crowns
+  Assets:Test:I love ♚♛♕♔: Assets:Test:I-Love-Crowns
+  Assets:Coll1: Assets:Collision
+  Assets:Coll2: Assets:Collision
+  Equity:Opening-balance: Equity:Opening-Balance
+  Assets:Shorter: Assets:Short
+  Assets:Longer: Assets:MuchLonger
+  Assets:Cash: Assets:Bash
+  Assets:Bank (Debian): Assets:Bank:Debian
+  Assets:Bank Debian]bar: Assets:Bank:Debian:Bar
+  Income:Interest: Revenue:Interest
+  Expenses:Foo:Travel: Expenses:Travel
+  Expenses:Bar:Travel: Expenses:Travel
+  Trading:Currency: Equity:Trading:Currency
+  A: Assets:Aaa
+  B: Assets:Bbb
+
+account_regex:
+  ^Accrued:Accounts Payable:(.*): Liabilities:Accounts Payable:$1
+  ^Accrued:Accounts Receivable:(.*): Assets:Accounts-Receivable:$1

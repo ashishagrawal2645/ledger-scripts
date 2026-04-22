@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: © 2018 Stefano Zacchiroli <zack@upsilon.cc>
+# SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+on:
+  - push
+  - pull_request
+jobs:
+  test:
+    name: Unit Tests
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-20.04
+          - windows-latest
+        beancount:
+          - "beancount>=2.3.3"
+          - "git+https://github.com/beancount/beancount/@v2"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - if: matrix.os == 'ubuntu-20.04'
+        run: sudo apt install hledger ledger
+      - if: matrix.os == 'macos-latest'
+        run: brew install coreutils hledger ledger
+      - if: matrix.os == 'windows-latest'
+        run: choco install strawberryperl
+      - uses: perl-actions/install-with-cpanm@v1.1
+        with:
+          cpanfile: "cpanfile"
+      - run: pip install ${{ matrix.beancount }}
+      - if: matrix.os != 'windows-latest'
+        run: make test
+      - if: matrix.os == 'windows-latest'
+        run: make test
+        env:
+          PERL5BIN: C:\\strawberry\\perl\\bin\\perl
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install -r requirements.txt
+      - run: mkdocs build
+      - run: find -name "*.yml" -exec yamllint -s {} \;
+      - run: find -name "*.yaml" -exec yamllint -s {} \;
+      - run: sudo apt-get install aspell aspell-en
+      - run: pip install "pyspelling>=2.7"
+      - run: pyspelling
+      - run: pip install codespell
+      - run: find \( -name "*.md" -or -name "*.scd" \) -exec codespell {} \;

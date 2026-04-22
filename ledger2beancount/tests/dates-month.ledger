@@ -1,0 +1,42 @@
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+--input-date-format %Y-%b-%d
+
+account Assets:Test
+account Equity:Opening-Balance
+
+commodity EUR
+commodity USD
+
+2018-Mar-29 * Non-ISO 8601 date
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2020/6/2 * Date %Y/%m/%d
+    Assets:Test                        10.00 EUR
+    Assets:Test
+
+2020/06/23 * Date %Y/%m/%d
+    Assets:Test                        10.00 EUR
+    Assets:Test
+
+2020/6/2 * Date %Y-%m-%d
+    Assets:Test                        10.00 EUR
+    Assets:Test
+
+2020/06/23 * Date %Y-%m-%d
+    Assets:Test                        10.00 EUR
+    Assets:Test
+
+year 2020
+
+6/2 Date %m/%d
+    Assets:Test                        10.00 EUR
+    Assets:Test
+
+06/23 Date %m/%d
+    Assets:Test                        10.00 EUR
+    Assets:Test
+

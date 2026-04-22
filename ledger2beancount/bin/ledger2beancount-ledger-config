@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+
+# SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# obtain configuration data from ~/.ledgerrc for ledger2beancount
+
+use strict;
+use warnings;
+
+unshift(@ARGV, "$ENV{HOME}/.ledgerrc") unless @ARGV;
+open my $input, $ARGV[0] or die "Can't read $ARGV[0]";
+
+my $format;
+while (<$input>) {
+    if (/^--input-date-format\s+"?(.*)"?/) {
+        $format = $1;
+    } elsif (!$format && /^--date-format\s+"?(.*)"?/) {
+        $format = $1;
+    } elsif (/^--decimal-comma/) {
+        print "decimal_comma: true\n";
+    }
+}
+close $input;
+
+print "date_format: \"$format\"\n" if $format;
+

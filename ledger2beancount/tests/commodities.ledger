@@ -1,0 +1,160 @@
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+account Assets:Test
+account Assets:Test123
+account Expenses:Gandi  ; test comment
+account Equity:Opening-Balance
+
+commodity "A commodity"
+commodity "Another commodity" ; just a comment
+commodity AnotherAnotherAnotherAnother
+@commodity Chase
+!commodity "DE0002635307"
+
+commodity $
+    value 0.90 EUR
+
+commodity USD
+    alias FOO
+
+commodity EUR
+    note Euro
+    format 1000.00EUR
+    nomarket
+    default
+
+commodity Gandi
+    note Gandi points
+commodity KrisFlyer
+commodity "M&M"
+commodity "M&M2"
+commodity "M&M3"
+commodity "M&M4"
+commodity MR
+    note AMEX Membership Rewards
+
+commodity krw
+commodity Aud
+commodity Crown♛
+commodity Bär
+commodity Föö
+
+commodity Mötz
+commodity M♛O
+
+commodity "TEST123" ; comment with "quote"
+
+2018-03-17 * Test quoted commodity
+    Assets:Test                      1 "DE0002635307"
+    Equity:Opening-Balance          -1 "DE0002635307"
+
+2018-03-17 * Test commodity mapping
+    Assets:Test                      1 Chase
+    Equity:Opening-Balance          -1 Chase
+
+2018-03-18 * Test quoted commodity with defined mapping
+    Assets:Test                      1 "M&M"
+    Equity:Opening-Balance          -1 "M&M"
+
+2018-03-18 * Test quoted commodity with defined mapping missing quotes
+    Assets:Test                      1 "M&M2"
+    Equity:Opening-Balance          -1 "M&M2"
+
+2018-03-18 * Test upper case
+    Assets:Test                      1 Gandi
+    Equity:Opening-Balance          -1 Gandi
+
+2017-03-31 * Test with account name containing same string as commodity
+    Expenses:Gandi                                        140616 Gandi
+    Assets:Test                                          -140616 Gandi
+
+2018-03-20 * Account name ending in digits - digits not part of amount
+    Assets:Test123                     10.00 EUR
+    Equity:Opening-Balance
+
+2018-03-21 * Test upper caser for lot price
+    Assets:Test                  1 MR @ 1 KrisFlyer
+    Equity:Opening-Balance
+
+2018-03-21 * Invalid character for beancount commodity names
+    Assets:Test                          1 "M&M3"
+    Equity:Opening-Balance
+
+2018-03-21 * Invalid character for beancount commodity names, with mapping
+    Assets:Test                          1 "M&M4"
+    Equity:Opening-Balance
+
+2018-03-21 * Commodity with space
+    Assets:Test                          1 "A commodity"
+    Equity:Opening-Balance
+
+2018-03-21 * Commodity with space, with mapping
+    Assets:Test                          1 "Another commodity"
+    Equity:Opening-Balance
+
+2018-03-21 * Commodity is too long for beancount
+    Assets:Test                          1 AnotherAnotherAnotherAnother
+    Equity:Opening-Balance
+
+2018-03-26 * Lower case
+    Assets:Test                          1 krw
+    Equity:Opening-Balance
+
+2018-03-26 * Lower case at end
+    Assets:Test                          1 Aud
+    Equity:Opening-Balance
+
+2018-03-26 * Non-letter at end
+    Assets:Test                          1 Crown♛
+    Equity:Opening-Balance
+
+2018-03-26 * Umlaut in middle
+    Assets:Test                          1 Bär
+    Equity:Opening-Balance
+
+2018-03-26 * Umlaut at end
+    Assets:Test                          1 Föö
+    Equity:Opening-Balance
+
+2018-03-26 * Mapped before transformation
+    Assets:Test                          1 Mötz
+    Equity:Opening-Balance
+
+2018-03-26 * Mapped after transformation
+    Assets:Test                          1 M♛O
+    Equity:Opening-Balance
+
+2018-03-29 * Mapping creating collision
+    Assets:Test                          1 COLLA
+    Equity:Opening-Balance
+
+2018-03-29 * Mapping creating collision
+    Assets:Test                          1 COLLB
+    Equity:Opening-Balance
+
+2018-04-28 * Commodity with only 1 letter
+    Assets:Test                              1 C
+    Equity:Opening-Balance
+
+2018-04-28 * Commodity with only 1 letter
+    Assets:Test                              1 ♛
+    Equity:Opening-Balance
+
+2020-07-27 * Unquoted commodities may contain single quote
+    Assets:Test               1 'TEST'
+    Assets:Test
+
+2020-07-27 * Unquoted commodities may contain single quote
+    Assets:Test                1 T'EST
+    Assets:Test
+
+2020-07-27 * Unquoted commodities may contain double quote
+    Assets:Test                1 TE"ST
+    Assets:Test
+
+2020-07-27 * Unquoted commodities may contain double quote
+    Assets:Test                1 TEST"
+    Assets:Test
+

@@ -1,0 +1,127 @@
+; Beancount: 2.1.0
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+account Assets:Test
+account Equity:Opening-Balance
+
+commodity EUR
+
+2018-03-17 * Tag on transaction
+    ; :foo:bar:baz:
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-17 * Tag on transaction, split over two lines
+    ; :foo:bar:baz:
+    ; :second:
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-17 * Tag on transaction, one converted to a link
+    ; :foo:bar:2018-02-02-brussels-fosdem:baz:
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-17 * Tag on transaction, one link on posting level
+    ; :foo:bar:2018-02-02-brussels-fosdem:baz:
+    Assets:Test                        10.00 EUR
+        ; :qux:quux:2018-03-08-london:quuz:
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-17 * Tag on postings
+    ; :foo:bar:baz:
+    Assets:Test                        10.00 EUR
+        ; :foo:
+    Equity:Opening-Balance            -10.00 EUR
+        ; :bar:
+
+2018-03-31 * Tag on postings, without indentation
+    ; :foo:bar:baz:
+    Assets:Test                        10.00 EUR
+    ; :qux:2018-03-08-london:
+    Equity:Opening-Balance            -10.00 EUR
+    ; :quux:quuz:
+
+2018-05-23 * Tag on postings, same line
+    ; :foo:bar:baz:
+    Assets:Test                        10.00 EUR ; :qux:2018-03-08-london:
+    Equity:Opening-Balance            -10.00 EUR ; :quux:quuz:
+
+2018-05-23 * Tag on postings, same and next line
+    ; :foo:bar:baz:
+    Assets:Test                        10.00 EUR ; :qux:2018-03-08-london:
+        ; :foo:
+    Equity:Opening-Balance            -10.00 EUR ; :quux:quuz:
+
+; This is not a tag; you need two spaces before the comment
+2019-01-25 * Just a payee description ; :foo:
+    ; :bar:baz:
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2019-01-25 * Tag on same line as payee  ; :foo:
+    ; :bar:baz:
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2019-01-25 * Tag on same line as payee	; :foo:
+    ; :bar:baz:
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2019-01-25 * Comment and tag on same line as payee  ; comment :foo:
+    ; :bar:baz:
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2020-08-06 * Tag on same line as payee	 ; :foo:
+    Assets:Test                        10.00 EUR
+    Assets:Test                       -10.00 EUR
+
+2020-08-06 * Tag on same line as payee 	; :foo:
+    Assets:Test                        10.00 EUR
+    Assets:Test                       -10.00 EUR
+
+2020-08-06 * Tag on same line as payee 	 ; :foo:
+    Assets:Test                        10.00 EUR
+    Assets:Test                       -10.00 EUR
+
+2020-10-01 * No space before tag
+    Assets:Test                        10.00 EUR;:foo:
+    Assets:Test                       -10.00 EUR
+
+2020-10-01 * Many spaces before tag
+    Assets:Test                        10.00 EUR   ;   :foo:
+    Assets:Test                       -10.00 EUR
+
+2020-10-01 * Tab separated
+    ;	Comment
+    Assets:Test                        10.00 EUR;	:foo:
+    Assets:Test                       -10.00 EUR
+
+2020-10-01 * Tab separated	;	:foo:
+    Assets:Test                        10.00 EUR	;	:foo:
+    Assets:Test                       -10.00 EUR
+
+2020-10-02 * Inconsistent spacing: 4 for postings, 2 for tags
+      ; :foo:
+    Assets:Test                        10.00 EUR
+      ; :bar:
+    Assets:Test                       -10.00 EUR
+
+2020-10-13=2020-10-11 * Tag on same line as payee, with auxdate  ; :foo:
+    Assets:Test                        10.00 EUR
+    Assets:Test                       -10.00 EUR
+
+2020-10-23 * Comment spacing for comment after tag
+    Assets:Test                        10.00 EUR ; :bar: test
+    Equity:Opening-Balance            -10.00 EUR ;:bar: test
+
+2020-10-23 * Comment spacing for comment after tag
+    Assets:Test                        10.00 EUR
+        ; :bar: test
+    Equity:Opening-Balance            -10.00 EUR
+        ;:bar: test
+

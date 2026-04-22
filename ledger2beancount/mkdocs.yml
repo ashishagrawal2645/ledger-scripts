@@ -1,0 +1,47 @@
+---
+site_name: ledger2beancount
+site_description: Ledger to Beancount converter
+site_url: https://ledger2beancount.readthedocs.io/
+repo_url: https://github.com/beancount/ledger2beancount
+site_author: Stefano Zacchiroli, Martin Michlmayr
+use_directory_urls: true
+
+theme:
+    name: readthedocs
+    custom_dir: themes
+    highlightjs: true
+    hljs_languages:
+        - shell
+        - text
+        - yaml
+
+nav:
+    - Introduction: index.md
+    - Getting started:
+          - Features: features.md
+          - Compatibility: compatibility.md
+          - Installation: installation.md
+          - Usage: usage.md
+          - Configuration: configuration.md
+    - Guides:
+          - User guide: guide.md
+          - Limitations: limitations.md
+    - About:
+          - Release notes: changelog.md
+          - Bugs and contributions: contributing.md
+          - Authors and contributors: authors.md
+          - License and copyright: license.md
+
+markdown_extensions:
+    - toc:
+          permalink: 
+          baselevel: 2
+    - def_list
+
+plugins:
+    - search
+    - exclude:
+          glob:
+              - "*.1"
+              - "*.5"
+              - "*.scd"

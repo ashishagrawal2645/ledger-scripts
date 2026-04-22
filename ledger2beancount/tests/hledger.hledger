@@ -1,0 +1,316 @@
+; SPDX-FileCopyrightText: © 2019 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+account Assets:A ; foo
+
+; Payee and narration
+
+2015/5/30 foo | bar
+    Assets:A        10.00 EUR
+    Assets:B       -10.00 EUR
+
+2015/5/30 foo|bar
+    Assets:A        10.00 EUR
+    Assets:B       -10.00 EUR
+
+2015/5/30 foo| bar
+    Assets:A        10.00 EUR
+    Assets:B       -10.00 EUR
+
+2015/5/30 foo | bar | baz
+    Assets:A        10.00 EUR
+    Assets:B       -10.00 EUR
+
+; Posting level dates as comments
+
+2015/5/30 date as comment
+    expenses:food     $10   ; food purchased on saturday 05/30
+    assets:checking         ; bank cleared it on monday, date:2005/6/01
+
+2015/5/30 date as comment without year
+    expenses:food     $10   ; food purchased on saturday 05/30
+    assets:checking         ; bank cleared it on monday, date:6/1
+
+2015/5/30 date2 as comment
+    expenses:food     $10   ; food purchased on saturday 05/30
+    assets:checking         ; bank cleared it on monday, date2:2005/6/2
+
+2015/5/30 date and date2 as comment
+    expenses:food     $10   ; food purchased on saturday 05/30
+    assets:checking         ; bank cleared it on monday, date:2005/6/01, date2:2005/6/2
+
+2015/5/30 date and date2 as comment, in reverse order
+    expenses:food     $10   ; food purchased on saturday 05/30
+    assets:checking         ; bank cleared it on monday, date2:2005/6/02, date:2005/6/1
+
+2015/5/30 date and date2 on next line
+    ; bank cleared it on monday. date2:2005/6/02, date:2005/6/1
+    expenses:food     $10
+    assets:checking
+
+2015/5/30 date and date2 on next line
+    expenses:food     $10
+      ; bank cleared it on monday. date2:2005/6/02, date:2005/6/1
+    assets:checking
+
+2015/5/30 date and date2 on next line
+    expenses:food     $10
+    assets:checking
+      ; bank cleared it on monday. date2:2005/6/02, date:2005/6/1
+
+; Tags
+
+2019/01/28 Tag test  ; sometag:, foo:, bar:
+    Assets:A                 10.00 EUR
+    Assets:B
+
+2019/01/28 Tag test  ; sometag: , foo:, bar:
+    Assets:A                 10.00 EUR
+    Assets:B
+
+2019/01/28 ledger tag  ; :tag1:tag2:
+    Assets:A                 10.00 EUR
+    Assets:B
+
+2019/01/28 Tag test  ;sometag: foo , foo:, bar:
+    Assets:A                 10.00 EUR
+    Assets:B
+
+2019/01/28 Tag test  ; sometag: this is a value, foo:another value, bar:
+    Assets:A                 10.00 EUR
+    Assets:B
+
+2019/01/28 Tag test  ; a comment containing tag1:, tag2: some value ...
+    Assets:A                 10.00 EUR
+    Assets:B
+
+2019/01/28 Tag test  ; sometag: this is a value, foo:another value, bar:, test♚: foo
+    Assets:A                 10.00 EUR
+        ; TEST1234TEST: foo
+        ; test♚: foo
+        ; 2012: foo
+        ; 2012foo: foo
+    Assets:B
+
+2019/01/28 Tag test
+    Assets:A                 10.00 EUR ; sometag: , foo:, bar:
+    Assets:B
+
+2019/01/28 Tag test
+    Assets:A                 10.00 EUR ;sometag: foo   , foo:, bar:
+    Assets:B
+
+2020/06/24 Comment
+    Assets:A                 10.00 EUR ;This is a comment which ends with a comma,
+    Assets:B
+
+2020/07/26 Tag test
+    ; foo:,bar: test
+    Assets:Test                    $10
+    Assets:Test
+
+2020/07/26 Tag test
+    ; foo: ,bar: test
+    Assets:Test                    $10
+    Assets:Test
+
+2020/07/26 Tag test
+    ; bar: test, foo:
+    Assets:Test                    $10
+    Assets:Test
+
+2020/07/26 Tag test
+    ; foo,bar: test
+    Assets:Test                    $10
+    Assets:Test
+
+2020/07/26 Tag test
+    ; foo:bar: test, abc,def: ghi
+    Assets:Test                    $10
+    Assets:Test
+
+2020/07/26 Tag test
+    ; bar:foo:
+    Assets:Test                    $10
+    Assets:Test
+
+2020/07/26 Decimal mark with period
+    Assets:Test   1.23456780000009 BTC
+    Assets:Test
+
+2020/07/26 Decimal mark with comma
+    Assets:Test   1,23456780000009 BTC
+    Assets:Test
+
+2020/07/26 Thousand
+    Assets:Test           1,000.00 EUR
+    Assets:Test
+
+alias Assets:Test=Assets:Bank
+
+2020/07/27 Alias
+    Assets:Test              10.00 EUR
+    Assets:Test
+
+end aliases
+
+2020/07/27 No alias
+    Assets:Test              10.00 EUR
+    Assets:Test
+
+alias Assets:Test=Assets:Bank
+
+2020/07/27 Alias
+    Assets:Test              10.00 EUR
+    Assets:Test
+
+!end aliases
+
+2020/07/27 No alias
+    Assets:Test              10.00 EUR
+    Assets:Test
+
+alias /Assets:T.../ = Assets:Bank
+
+2020-07-26 Alias
+    Assets:Test              10.00 EUR
+    Assets:Test
+
+alias /^(.+):bank:([^:]+):(.*)/ = \1:\2-\3
+
+2020-07-26 Alias
+    Assets:Bank:Wells-Fargo:Checking  $10.00
+    Assets:Bank
+
+end aliases
+
+2020-07-26 No alias
+    Assets:Test              10.00 EUR
+    Assets:Test
+
+2020/07/26 * Sub-account assertion 1
+    Assets:Checking:A            5 EUR
+    Assets:Checking:B            5 EUR
+    Assets:Checking              1 EUR =* 11 EUR
+    Equity:Opening-Balances
+
+2020/07/26 * Sub-account assertion 2
+    Assets:Checking:A            5 EUR
+    Assets:Checking:B            5 EUR
+    Assets:Checking              1 EUR =* 22 EUR ; comment
+    Equity:Opening-Balances
+
+2020/07/26 * Sub-account assertion 3
+    Assets:Checking:A            5 EUR
+    Assets:Checking:B            5 EUR
+    Assets:Checking              1 EUR ==* 33 EUR
+    Equity:Opening-Balances
+
+2020/07/26 * Sub-account assertion 4
+    Assets:Checking:A            5 EUR
+    Assets:Checking:B            5 EUR
+    Assets:Checking              1 EUR ==* 44 EUR ; comment
+    Equity:Opening-Balances
+
+2020/07/26 USD opening balance
+    Assets:USD                      $1
+    Assets:Test
+
+2020/07/26 Check USD balance
+    Assets:USD                      $0 == $1
+    Assets:USD
+
+commodity R$ 1.234,56
+
+commodity ¥ 1,234.56;comment
+
+commodity 1.234,56 Kč
+
+commodity 1.234,56 Ft;comment
+
+commodity ₪
+    format ₪ 2.000.000,00 ; comment
+
+2020-07-27 Two million
+    Assets:Test         ₪ 2.000.000,00
+    Assets:Test
+
+2020-07-27 Thousand
+    Assets:Test                ₪ 1.000
+    Assets:Test
+
+commodity INR 9,99,99,999.00
+
+2020-07-27 Format currently not allowed
+    Assets:Test     INR 9,99,99,999.00
+    Assets:Test
+
+commodity kr 1 234 567.000
+
+2020-07-27 Space
+    Assets:Test           kr 1 234 567
+    Assets:Test
+
+2020-07-27 One
+    Assets:Test               kr 1.000
+    Assets:Test
+
+commodity 1 000 000.9455 FOO
+
+2020-07-27 Space
+    Assets:Test         1 000.9455 FOO
+    Assets:Test
+
+2020-07-27 Space
+    Assets:Test     1 000 000.9455 FOO
+    Assets:Test
+
+D 1.000,00 zł
+2020-07-27 Thousand
+    Assets:Test               1.000 zł
+    Assets:Test
+
+2020/10/08 Tag test  ; foo: bar
+    Assets:Test                    $10
+    Assets:Test
+
+2020/10/08 Tag test  ; foo: bar
+    ; test: bar
+    Assets:Test                    $10
+    Assets:Test
+
+2020/10/08 Tag test  ; foo: bar
+    ; bar:
+    Assets:Test                    $10
+    Assets:Test
+
+2020/10/08=2020/10/05 Tag test  ; foo: bar
+    Assets:Test                    $10
+    Assets:Test
+
+2020/10/08=2020/10/05 Tag test  ; foo: bar
+    ; test: bar
+    Assets:Test                    $10
+    Assets:Test
+
+2020/10/08=2020/10/05 Tag test  ; foo: bar
+    ; bar:
+    Assets:Test                    $10
+    Assets:Test
+
+2020/10/13 No commodity: zł (from earlier)
+    Assets:Test                  1.000
+    Assets:Test
+
+D £1,000.00
+
+2020/10/13 No commodity: £ now
+    Assets:Test               1,000.00
+    Assets:Test
+
+; No payee information
+2020/10/13
+    Assets:Test              10.00 EUR
+    Assets:Test
+

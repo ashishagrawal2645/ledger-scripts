@@ -1,0 +1,336 @@
+; Beancount: 2.1.0
+
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+account Assets:Test
+    note Test account
+    alias food
+    default
+
+account Equity:Opening balance
+    note opening balance...
+account Assets:Vouchers:99Ranch
+!account Assets:Vouchers:99Ranch:99Test
+@account Liabilities:Credit Card:Test
+account Assets:Vouchers:99test
+account Assets:♚_DASD!;?@#$!%^& *"(*(0-;♚ds
+account Assets:♚foo:♚bar
+account Expenses:École républicaine
+account Expenses:école
+account Assets:♚♛♕♔
+account Assets:Test:I love ♚♛♕♔
+account Assets:Commodity-Test123
+account expenses:purchase
+
+; These accounts lead to name collision
+account Expenses:Foo:Travel
+account Expenses:Bar:Travel
+
+commodity EUR
+
+2018-03-17 * Test 1
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-17 * Test 2
+    Assets:Test
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-17 * Test 3
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance
+
+2018-03-17 * Test 4
+    Assets:Test                           10 EUR
+    Equity:Opening-Balance
+
+; Account with space
+2018-03-17 * Test
+    Assets:Test                        10.00 EUR
+    Equity:Opening balance            -10.00 EUR
+
+2018-03-17 * Test 1
+    Assets:Test  10.00 EUR
+    Equity:Opening-Balance  -10.00 EUR
+
+2018-03-17 * Test 1
+    Assets:Test	10.00 EUR
+    Equity:Opening-Balance	-10.00 EUR
+
+2018-03-17 Test: account with space and flag
+    * Assets:Test                        10.00 EUR
+    ! Equity:Opening balance            -10.00 EUR
+
+2018-03-18 * Test
+    Assets:Test                        10.00 EUR
+    Equity:Opening balance                       ; comment
+
+2018-03-18 * Account name with space
+    Liabilities:Credit Card:Test      -10.00 EUR
+    Equity:Opening balance
+
+2018-03-18 * Account name starting with lower case
+    Assets:test                        10.00 EUR
+    Equity:Opening balance
+
+2018-03-18 * Account name with space and ucfirst
+    Liabilities:credit Card:test      -10.00 EUR
+    Equity:Opening balance
+
+2018-03-18 * Account name starting with digits
+    Assets:Vouchers:99Ranch            10.00 EUR
+    Equity:Opening-Balance
+
+2018-03-18 * 2 account name starting with digits
+    Assets:Vouchers:99Ranch:99Test     10.00 EUR
+    Equity:Opening-Balance
+
+2018-03-18 * Lower case after digit
+    Assets:Vouchers:99test             10.00 EUR
+    Equity:Opening-Balance
+
+2018-03-26 * Interesting account name
+    Assets:♚_DASD!;?@#$!%^& *"(*(0-;♚ds   10.00 EUR
+    Equity:Opening-Balance               -10.00 EUR
+
+2018-03-26 * Interesting account name, mapped before conversion
+    Assets:♚♛♕♔                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-26 * Interesting account name, mapped after conversion
+    Assets:Test:I love ♚♛♕♔            10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-26 * Ensure first letter is upper case letter
+    Assets:♚foo:♚bar                   10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-26 * Drop accents
+    Expenses:École républicaine        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-26 * Ensure first letter is upper case letter
+    Expenses:école                     10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-27 * Account name could be mistaken for commodity
+    Assets:Test                        10.00 EUR
+    Assets:Commodity-Test123
+
+2018-03-28 * all lower case account names
+    expenses:purchase                  10.00 EUR
+    assets:test
+
+2018-03-29 * Mapping creating collision
+    Assets:Coll1                           1 EUR
+    Equity:Opening-Balance
+
+2018-03-29 * Mapping creating collision
+    Assets:Coll2                           1 EUR
+    Equity:Opening-Balance
+
+2018-04-18 * Preserve whitespace: shorter
+    Assets:Shorter                     10.00 EUR
+    Assets:Test                       -10.00 EUR
+
+2018-04-18 * Preserve whitespace: shorter
+   Assets:Shorter  10.00 EUR
+    Assets:Test    -10.00 EUR
+
+2018-04-18 * Preserve whitespace: shorter
+    Assets:Shorter	10.00 EUR
+    Assets:Test	-10.00 EUR
+
+2018-04-18 * Preserve whitespace: shorter
+    Assets:Shorter
+    Assets:Test                       -10.00 EUR
+
+2018-04-18 * Preserve whitespace: longer
+    Assets:Longer                      10.00 EUR
+    Assets:Test                       -10.00 EUR
+
+; Impossible to preserve
+2018-04-18 * Preserve whitespace: longer
+    Assets:Longer  10.00 EUR
+    Assets:Test   -10.00 EUR
+
+2018-04-18 * Preserve whitespace: longer
+    Assets:Longer	10.00 EUR
+    Assets:Test	-10.00 EUR
+
+2018-04-18 * Preserve whitespace: longer
+    Assets:Longer
+    Assets:Test                       -10.00 EUR
+
+2018-04-18 * Preserve whitespace: same
+    Assets:Cash                        10.00 EUR
+    Assets:Test                       -10.00 EUR
+
+2018-04-18 * Preserve whitespace: same
+    Assets:Cash  10.00 EUR
+    Assets:A    -10.00 EUR
+
+2018-04-18 * Preserve whitespace: same
+    Assets:Cash	10.00 EUR
+    Assets:Test	-10.00 EUR
+
+2018-04-18 * Preserve whitespace: same
+    Assets:Cash
+    Assets:Test                       -10.00 EUR
+
+2018-10-22 Whitespace is not part of account name
+    Assets:Test                      10.00 EUR
+    Assets:Bank 	            -10.00 EUR
+
+2018-10-22 Whitespace is not part of account name
+    Assets:Test                      10.00 EUR
+    [Assets:Bank] 	            -10.00 EUR
+
+2018-10-22 Trailing whitespace is not part of account name
+    Assets:Test                      10.00 EUR
+    Assets:Bank 
+
+2018-10-22 Trailing whitespace is not part of account name
+    Assets:Test                      10.00 EUR
+    Assets:Bank	
+
+2018-10-22 Trailing whitespace is not part of account name
+    Assets:Test                      10.00 EUR
+    Assets:Bank 	
+
+2018-10-22 Trailing whitespace is not part of account name
+    Assets:Test                      10.00 EUR
+    [Assets:Bank] 
+
+2018-10-22 Trailing whitespace is not part of account name
+    Assets:Test                      10.00 EUR
+    [Assets:Bank]	
+
+2018-10-22 Trailing whitespace is not part of account name
+    Assets:Test                      10.00 EUR
+    [Assets:Bank] 	
+
+2019-02-28 Tab after account name
+    Assets:Test                           10.00 EUR
+    Assets:Bank	                         -10.00 EUR
+
+2019-02-28 Tab after account name
+    Assets:Test                           10.00 EUR
+    Assets:Bank	                         -10.00 EUR
+    (Assets:Bank)	                       2.00 EUR
+
+account Assets:Bank (Debian)
+account Assets:Bank [Debian]
+account Assets:Bank Debian)bar
+account Assets:Bank Debian]bar
+
+2018-01-02 * Account name with brackets
+    Expenses:Foo                      10.00 USD
+    Assets:Bank (Debian)             -10.00 USD
+
+2018-01-02 * Account name with brackets
+    Expenses:Foo                      10.00 USD
+    Assets:Bank [Debian]             -10.00 USD
+
+2018-01-02 * Account name with brackets
+    Expenses:Foo                      10.00 USD
+    Assets:Bank Debian)bar           -10.00 USD
+
+2018-01-02 * Account name with brackets
+    Expenses:Foo                      10.00 USD
+    Assets:Bank Debian]bar           -10.00 USD
+
+2018-01-02 * Account name with brackets, as virtual posting
+    Expenses:Foo                      10.00 USD
+    Assets:Bank                      -10.00 USD
+    (Assets:Bank (Debian))            -2.00 USD
+
+2018-01-02 * Account name with brackets, as virtual posting
+    Expenses:Foo                      10.00 USD
+    Assets:Bank                      -10.00 USD
+    (Assets:Bank [Debian])            -2.00 USD
+
+2018-01-02 * Account name with brackets, as virtual posting
+    Expenses:Foo                      10.00 USD
+    Assets:Bank                      -10.00 USD
+    (Assets:Bank Debian)bar)          -2.00 USD
+
+2018-01-02 * Account name with brackets, as virtual posting
+    Expenses:Foo                      10.00 USD
+    Assets:Bank                      -10.00 USD
+    (Assets:Bank Debian]bar)          -2.00 USD
+
+2018-01-02 * Account name with brackets, as virtual posting
+    Expenses:Foo                      10.00 USD
+    Assets:Bank                       -8.00 USD
+    [Assets:Bank (Debian)]            -2.00 USD
+
+2018-01-02 * Account name with brackets, as virtual posting
+    Expenses:Foo                      10.00 USD
+    Assets:Bank                       -8.00 USD
+    [Assets:Bank [Debian]]            -2.00 USD
+
+2018-01-02 * Account name with brackets, as virtual posting
+    Expenses:Foo                      10.00 USD
+    Assets:Bank                       -8.00 USD
+    [Assets:Bank Debian)bar]          -2.00 USD
+
+2018-01-02 * Account name with brackets, as virtual posting
+    Expenses:Foo                      10.00 USD
+    Assets:Bank                       -8.00 USD
+    [Assets:Bank Debian]bar]          -2.00 USD
+
+2019-03-27 Don't confuse account and amount due to tabs
+	Assets:Bank 	 -35.00 EUR
+	Expenses:Foo	 35.00 EUR
+
+2019-03-27 Invalid account: root is not valid, needs subaccount
+	Assets:Bank     42.00 EUR
+	Revenue
+
+2019-03-27 Non-standard root name
+    Assets:Bank                      100.00 EUR
+    Revenue:Salary                  -100.00 EUR
+
+2019-03-27 Non-standard root name (after mapping)
+    Assets:Bank                        1.00 EUR
+    Income:Interest                   -1.00 EUR
+
+2019-04-06 * Name collision and account declarations
+    Expenses:Foo:Travel               11.00 EUR
+    Assets:Bank                      -11.00 EUR
+
+2019-04-06 * Name collision and account declarations
+    Expenses:Foo:Travel               22.00 EUR
+    Assets:Bank                      -22.00 EUR
+
+2019-04-17 * Mass rename of accounts using account_regex
+    Accrued:Accounts Receivable:Foo   10.00 EUR
+    Revenue:Foo                      -10.00 EUR
+
+2019-04-17 * Mass rename of accounts using account_regex
+    Accrued:Accounts Receivable:Bar   10.00 EUR
+    Revenue:Foo                      -10.00 EUR
+
+2019-04-17 * Mass rename of accounts using account_regex - leads to a name that requires further changes
+    Accrued:Accounts Payable:Baz      10.00 EUR
+    Expenses:Foo                     -10.00 EUR
+
+2019-04-27 * Rename account to something which contains original account name
+    Assets:Bank                       10.00 EUR
+    Trading:Currency                 -10.00 EUR
+
+2019-04-28 * Account name with only one letter
+    A                                 10.00 EUR
+    B
+
+2019-04-28 Deferred account
+    Liabilities:MasterCard           150.00 EUR
+    <Assets:Bank>                   -150.00 EUR
+
+2019-04-29 * Strange but legal name in ledger - illegal in beancount
+    Expenses:Baz:                    100.00 EUR
+    Assets:Bank                     -100.00 EUR
+

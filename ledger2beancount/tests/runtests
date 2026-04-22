@@ -1,0 +1,167 @@
+#!/bin/sh
+
+# SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+status=0
+
+if [ -z "${SORT-}" ]; then
+	# We need sort from coreutils for -V
+	case `uname -s` in
+		Linux*) SORT=sort ;;
+		Darwin*) SORT=gsort ;;
+		NetBSD*) SORT=gsort ;;
+		*) SORT=sort ;;
+	esac
+fi
+
+meets_version() {
+	has=$1
+	needed=$2
+	latest=$(printf "$needed\n$has" | $SORT -V | tail -n 1)
+	if [ "$has" != "$latest" ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+test_conversion () {
+	test=$1
+	expected=$(echo $test | sed -e 's/\.h*ledger$/.beancount/')
+	actual=$(mktemp)
+
+	printf "Converting $test... "
+
+	config=ledger2beancount.yaml
+	t=$(echo $test | sed 's/.\h*ledger$//')
+	if [ -e $t.yaml ]; then
+		config=$t.yaml
+	fi
+
+	if [ -n "$PERL5BIN" ]; then
+		$PERL5BIN ../bin/ledger2beancount --config $config $test > $actual
+	else
+		../bin/ledger2beancount --config $config $test > $actual
+	fi
+
+	if $(cmp -s $expected $actual); then
+		echo "ok"
+	else
+		status=1
+		echo "FAIL"
+		diff -urN $expected $actual | tail -n +3
+	fi
+
+	rm -f $actual
+}
+
+test_validity_hledger () {
+	test=$1
+	printf "Validating $test... "
+	tmp=$(mktemp)
+	if $(hledger -f $test bal > $tmp 2>&1); then
+		echo "ok"
+	else
+		echo "FAIL"
+		cat $tmp
+		status=1
+	fi
+	rm -f $tmp
+}
+
+test_validity_ledger () {
+	test=$1
+	printf "Validating $test... "
+	tmp=$(mktemp)
+	ledger --init-file /dev/null -f $test bal > $tmp 2>&1
+	# Ignore errors due to missing Python support
+	errors=$(grep "^Error:" $tmp | grep -v "^Error: 'python' directive seen" | \
+		grep -v "^Error: 'import' directive seen" | \
+		grep -v "^Error: Unknown identifier 'print_type'$")
+	if [ -z "$errors" ]; then
+		echo "ok"
+	else
+		echo "FAIL"
+		cat $tmp
+		status=1
+	fi
+	rm -f $tmp
+}
+
+test_validity_beancount () {
+	test=$1
+	printf "Validating $test... "
+
+	# Ensure beancount is new enough
+	needed=$(grep "^; Beancount:" $test | head -n 1 | sed 's/^; Beancount:[[:space:]]*//')
+	if [ -n "$needed" ]; then
+		if ! $(meets_version $beancount_version $needed); then
+			echo "skipping since beancount is too old"
+			return
+		fi
+	fi
+
+	if bean-check $test; then
+		echo "ok"
+	else
+		echo "FAIL"
+		status=1
+	fi
+}
+
+# Warn if the locale is not UTF-8
+case "$LANG" in
+	*UTF-8* | *utf8*)
+		# good
+		;;
+	"")
+		echo "Can't determine locale.  Please ensure UTF-8"
+		;;
+	*)
+		echo "Locale is not UTF-8.  Tests might fail"
+		;;
+esac
+
+# Validate ledger files
+ledger_date=$(ledger --version 2>/dev/null | grep "^Ledger [0-9]" | cut -d " " -f 2 | cut -d - -f 2 | sed 's/,//')
+if [ -z $ledger_date ]; then
+	echo "Skipping ledger validation checks since ledger is not installed"
+elif [ $ledger_date -lt 20190205 ]; then
+	echo "Skipping ledger validation checks since ledger from $ledger_date is too old"
+else
+	for test in *.ledger; do
+		test_validity_ledger "$test"
+	done
+fi
+
+# Validate hledger file
+hledger_version=$(hledger --version n 2>/dev/null | cut -d" " -f2)
+if [ -z $hledger_version ]; then
+	echo "Skipping hledger validation checks since hledger is not installed"
+elif ! $(meets_version $hledger_version 1.14.2); then
+	echo "Skipping hledger validation checks since hledger $hledger_version is too old"
+else
+	for test in *.hledger; do
+		test_validity_hledger "$test"
+	done
+fi
+
+# Convert files
+for test in *.ledger *.hledger; do
+	test_conversion "$test"
+done
+
+# Validate beancount files
+beancount_version=$(bean-check --version 2>/dev/null | cut -d' ' -f2)
+if [ -z $beancount_version ]; then
+	echo "Skipping beancount validation checks since beancount is not installed"
+else
+	for test in *.beancount; do
+		test_validity_beancount "$test"
+	done
+fi
+
+exit $status
+

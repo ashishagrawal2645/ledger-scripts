@@ -1,0 +1,213 @@
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+--decimal-comma
+
+account Assets:99Test:Test99
+account Assets:Test1
+account Assets:Test2
+account Equity:Opening-Balance
+
+commodity EUR
+commodity GBP
+commodity $
+
+P 2002-01-01 € 6,55957 FRF
+
+2018-03-26 * Decimal comma
+    Assets:99Test:Test99               10,12 EUR
+    Equity:Opening-Balance
+
+2018-03-26 * Decimal comma, with thousand separator
+    Assets:99Test:Test99            EUR 1.000,00
+    Equity:Opening-Balance
+
+2018-03-26 * Decimal comma, with thousand separator
+    Assets:99Test:Test99            EUR 1.000,00
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity after amount
+    Assets:99Test:Test99                   1 EUR
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity after amount, no space
+    Assets:99Test:Test99                    1EUR
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity before amount
+    Assets:99Test:Test99                   EUR 1
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity before amount, no space
+    Assets:99Test:Test99              EUR1000,00
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity after amount, negative
+    Assets:99Test:Test99                  -1 EUR
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity after amount, negative, no space
+    Assets:99Test:Test99                   -1EUR
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity before amount, negative
+    Assets:99Test:Test99                  EUR -3
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity before amount, negative
+    Assets:99Test:Test99                  -EUR 2
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity symbol after amount
+    Assets:99Test:Test99                    100$
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity symbol after amount, negative
+    Assets:99Test:Test99                     -1$
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity symbol before amount
+    Assets:99Test:Test99                      $1
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity symbol before amount, negative
+    Assets:99Test:Test99                     -$1
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity symbol after amount, with space
+    Assets:99Test:Test99                     1 $
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity symbol before amount, with space
+    Assets:99Test:Test99                     $ 1
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity symbol after amount, negative, with space
+    Assets:99Test:Test99                    -1 $
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity symbol before amount, negative
+    Assets:99Test:Test99                    -$ 1
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity after amount, thousand
+    Assets:99Test:Test99               1.000 EUR
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity before amount, thousands
+    Assets:99Test:Test99            EUR 1.000,00
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity before amount, thousands, no space
+    Assets:99Test:Test99             EUR1.000,00
+    Equity:Opening-Balance
+
+2018-03-26 * Commodity before amount, one million
+    Assets:99Test:Test99        EUR 1.000.000,00
+    Equity:Opening-Balance
+
+2018-03-26 * Simple inline math
+    Assets:Test1                       (1*3 GBP)
+    Assets:Test2                          -3 GBP
+
+2018-03-26 * Simple inline math
+    Assets:Test1            1 GBP @ (1/1,14 EUR)
+    Assets:Test2                       -0,88 EUR
+
+2018-03-26 * Simple inline math
+    Assets:Test1       44,06 USD @ (1/1,362 GBP)
+    Assets:Test2                      -32,35 GBP
+
+2018-03-26 * Simple inline math
+    Assets:Test1                     (1 * 3 GBP)
+    Assets:Test2                          -3 GBP
+
+2018-03-26 * Simple inline math
+    Assets:Test1          1 GBP @ (1 / 1,14 EUR)
+    Assets:Test2                       -0,88 EUR
+
+2018-03-26 * Simple inline math
+    Assets:Test1     44,06 USD @ (1 / 1,362 GBP)
+    Assets:Test2                      -32,35 GBP
+
+2018-04-10 * Inline math: negative amounts
+    Expenses:Travel:Airfare      (2 * 15,00 GBP)
+    Expenses:Travel:Airfare       (2*4500 Avios)
+    Assets:Rewards               (2*-4500 Avios)
+    Liabilities:BA              (2 * -15,00 GBP)
+
+2018-04-10 * Inline math
+    Expenses:Housing:Rent         (550,00/2 GBP)
+    Assets:Receivable             (550,00/2 GBP)
+    Assets:Current                   -550,00 GBP
+
+2018-09-27 * Test amounts without digits before comma separator
+    Assets:Test                        €,10
+    Assets:Test                       €-,10
+    Assets:Test                        £,10
+    Assets:Test                       £-,10
+    Assets:Test                        $,10
+    Assets:Test                      $-0,10
+
+2020-06-22 Paycheck
+    Income:Salary                   -4000,00 USD
+    Assets:Bank                      4000,00 USD
+    Income:401k:Match        ($-4.000,00 * 0,05)
+    Assets:Investments        ($4.000,00 * 0,05)
+
+2020-06-22 Paycheck
+    Income:Salary                   -4000,00 USD
+    Assets:Bank                      4000,00 USD
+    Income:401k:Match      (-4000,00 USD * 0,05)
+    Assets:Investments      (4000,00 USD * 0,05)
+
+2020-06-22 Inline math
+    Assets:Test1              ((4,00 * $100,00))
+    Assets:Test2
+
+2020-06-22 Inline math
+    Assets:Test1              ((4,00) * $100,00)
+    Assets:Test2
+
+2020-06-22 Inline math
+    Assets:Test1         ((4,00*2,00) * $100,00)
+    Assets:Test2
+
+2020-06-22 Inline math
+    Assets:Test1  ((4,00 USD*2,00) * 100,00 USD)
+    Assets:Test2
+
+2020-06-22 Inline math
+    Assets:Test1              (2,00 USD * -4,00)
+    Assets:Test2
+
+define thousand=1.000,00 EUR
+2020-06-27 Define
+    Assets:Test1           (2,00 EUR + thousand)
+    Assets:Test2
+
+2020-08-01 * Amount without commodity
+    Assets:Test                               10
+    Assets:Test                              -10
+
+2020-08-01 * Amount without commodity
+    Assets:Test                            10,00
+    Assets:Test                           -10,00
+
+2020-08-01 * Amount without commodity
+    Assets:Test                             0,50
+    Assets:Test                            -0,50
+
+2020-08-01 * Amount without commodity
+    Assets:Test                              ,50
+    Assets:Test                             -,50
+
+2020-08-01 * Amount without commodity
+    Assets:Test                               ,5
+    Assets:Test                              -,5
+
+2020-08-01 * Amount without commodity: space between minus and number
+    Assets:Test                               ,5
+    Assets:Test                          -    ,5
+

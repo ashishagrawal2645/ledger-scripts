@@ -1,0 +1,64 @@
+---
+date_format: "%Y-%m-%d"
+# Date without year (if ledger's Y/year directive is used)
+date_format_no_year: "%m-%d"
+
+# mapping of ledger metadata key to corresponding beancount key
+metadata_map:
+  label: bank-label
+  x-payee: payee
+  x-payer: payer
+
+# metadata tags (*after* above mapping) used for specific purposes
+payee_tag: payee
+payer_tag: payer
+narration_tag: thing
+
+payee_split:
+  - (?<narration>.*?)\s+\((?<payee>Tesco)\)
+
+payee_match:
+  - (?i)^Oyster card top-up: TfL
+  - ^Marriott reward1.*\(£\d+\.\d+\): Creation
+  - ^Marriott reward2.*\(.\d+\.\d+\): Creation
+  - test: test
+
+account_map:
+  "Equity:Opening-balance": Equity:Opening-Balance
+
+# mapping of ledger commodities to valid beancount commodities
+commodity_map:
+  Chase: UR
+  '"M&M"': MILESMORE
+  M&M2: MILESMORE2
+  M-M4: MILESMORE4
+  Another commodity: ANOTHER
+  Mötz: MOETZ
+  M-O: MOO
+  XX: AA
+  COLLA: COLLISION
+  COLLB: COLLISION
+
+# You can set the following metadata tags to an empty string if you
+# don't want the metadata to be added to beancount.
+postdate_tag: date
+auxdate_tag: aux-date
+code_tag: code
+
+link_match:
+  - ^\d\d\d\d-\d\d-\d\d-
+
+link_tags:
+  - Trip
+  - Invoice
+
+# A list of commodities that should be treated as commodities
+# rather than currencies even though they consist of 3 characters
+# (which is usually a characteristic of a currency)
+currency_is_commodity:
+  - ETH
+
+commodity_is_currency:
+  - MR
+
+default_commodity: FOO

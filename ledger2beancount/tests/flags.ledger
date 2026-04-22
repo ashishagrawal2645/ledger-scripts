@@ -1,0 +1,21 @@
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+account Assets:Test
+account Equity:Opening-Balance
+
+commodity EUR
+
+2018-03-17 Test
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-17 * Test
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-17 ! Test
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+

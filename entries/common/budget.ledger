@@ -1,0 +1,186 @@
+; start_date = 2023/04/01
+; Automated postings
+********************************************************************************
+
+; = /^Liabilities:CreditCard:HDFC/ & (expr date >= [2023/04/01] & a < 0)
+;     [Equity:Diners:Total-Spends]                                       -1.0
+;     [Equity:Diners:Virtual]                                             1.0
+
+; = /^Liabilities:CreditCard:HDFC/ & (expr date >= [2023/04/01] & a < 0) & !tag(noTxnTotal)
+;     [Equity:Diners:CostPrice]                                          -1.0
+;     [Equity:Diners:Virtual]                                             1.0
+
+; = /^Liabilities:CreditCard:HDFC/ & (expr date >= [2023/04/01] & a > 0) & tag(txnTotal)
+;     [Equity:Diners:CostPrice]                                          -1.0
+;     [Equity:Diners:Virtual]                                             1.0
+
+; = /^Equity:Cashback:Diners/ & (expr date >= [2023/04/01] & a < 0) & tag(dcbVouchers)
+;     [Equity:Diners:Vouchers]                                           -1.0
+;     [Equity:Diners:Virtual]                                             1.0
+
+; = /^Assets:Sbi:Account/ & (expr payee =~ /SIP for sbi mutual fund/ & date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Sbi:Account:Virtual]                                       -1.0
+;     [Assets:Budget:Current:SBIMF]                                       1.0
+
+; = /^Liabilities:Loan:Personal-Loan:HDFC:Repayment/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:HDFC:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Loan:Personal-Loan]                         -1.0
+
+; = /^Expenses:Rent:Flat/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Rent:Flat]                                  -1.0
+
+; = /^Expenses:Insurance:ICICI-Term/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Insurance:ICICI-Term]                       -1.0
+
+; = /^Expenses:Bills/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Bills]                                      -1.0
+
+; = /^Expenses:Household/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Household]                                  -1.0
+
+; = /^Expenses:Food-Dining/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Food-Dining]                                -1.0
+
+; = /^Expenses:Entertainment/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Entertainment]                              -1.0
+
+; = /^Expenses:Transport/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Transport]                                  -1.0
+
+; = /^Expenses:House1/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:House1:Expenses]                            -1.0
+
+; = /^Expenses:PersonalCare/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:PersonalCare]                               -1.0
+
+; = /^Expenses:Medical/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Medical]                                    -1.0
+
+; = /^Expenses:Books/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Books]                                      -1.0
+
+; = /^Expenses:Bike/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Bike:Servicing]                             -1.0
+
+; = /^Expenses:Apartment/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Household]                                  -1.0
+
+; = /^Expenses:Rent:Muncipality/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Rent:Muncipality]                           -1.0
+
+; = /^Expenses:Gifts/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Gifts]                                      -1.0
+
+; = /^Expenses:Shopping/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Shopping]                                   -1.0
+
+; = /^Expenses:Travel/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Travel]                                     -1.0
+
+; = /^Expenses:Trip/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Trip]                                       -1.0
+
+; This entry is opposite as the amount is multipled to the multiplier which is negative as it is a CreditCard
+; This is also a magical entry as it will handle both normal transaction and bill payments as well
+; = /^Liabilities:CreditCard:Axis/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Budget:Current:CreditCard:Axis]                            -1.0
+;     [Assets:Axis:Account:Virtual]                                       1.0
+
+; = /^Liabilities:CreditCard:HDFC/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Budget:Current:CreditCard:HDFC]                            -1.0
+;     [Assets:Axis:Account:Virtual]                                       1.0
+
+; = /^Liabilities:CreditCard:AMEX/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Budget:Current:CreditCard:AMEX]                            -1.0
+;     [Assets:Axis:Account:Virtual]                                       1.0
+
+; = /^Liabilities:CreditCard:IDFC/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Budget:Current:CreditCard:IDFC]                            -1.0
+;     [Assets:Axis:Account:Virtual]                                       1.0
+
+; = /^Equity:Family:Krishna/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Krishna]                                    -1.0
+
+; = /^Assets:Axis:Account/ & (expr date >= [2023/04/01]) & tag(unbudgeted)
+;     [Assets:Axis:Account:Virtual]                                      -1.0
+;     [Assets:Budget:Current:Unbudgeted]                                  1.0
+
+; = /^Assets:Axis:Account/ & (expr date >= [2023/04/01]) & tag(investments)
+;     [Assets:Axis:Account:Virtual]                                      -1.0
+;     [Assets:Budget:Current:Investments:Retirement]                      1.0
+
+; = /^Expenses:Rent:Housekeeping/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Axis:Account:Virtual]                                       1.0
+;     [Assets:Budget:Current:Rent:Housekeeping]                          -1.0
+
+********************************************************************************
+; Budget postings
+********************************************************************************
+; = /Income:Arcesium:Salary/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     ; [Assets:Budget:Current:Rent:Flat]                                 23000 INR
+;     ; [Assets:Budget:Current:Rent:Housekeeping]                          3000 INR
+;     [Assets:Budget:Current:Household]                                 10000 INR
+;     [Assets:Budget:Current:Food-Dining]                                2500 INR
+;     [Assets:Budget:Current:Travel]                                        0 INR
+;     [Assets:Budget:Current:Bills]                                       500 INR
+;     [Assets:Budget:Current:Entertainment]                              1000 INR
+;     [Assets:Budget:Current:Transport]                                     0 INR
+;     [Assets:Budget:Current:Medical]                                    2000 INR
+;     [Assets:Budget:Current:Shopping]                                   1500 INR
+;     [Assets:Budget:Current:Sports-Fitness]                                0 INR
+;     [Assets:Budget:Current:PersonalCare]                               1000 INR
+;     [Assets:Budget:Current:Krishna]                                       0 INR
+;     [Assets:Budget:Current:Trip]                                          0 INR
+;     [Assets:Budget:Current:Books]                                         0 INR
+;     [Assets:Budget:Current:Gifts]                                         0 INR
+;     [Assets:Budget:Current:House1:Expenses]                               0 INR
+;     [Assets:Budget:Current:Bike:Servicing]                                0 INR
+;     [Assets:Axis:Account:Virtual]                                    -18500 INR
+
+; = /Income:Arcesium:Salary/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Budget:Current:Insurance:ICICI-Term]                       8163 INR
+;     [Assets:Axis:Account:Virtual]                                     -8163 INR
+
+; = /Income:Arcesium:Salary/ & (expr date >= [2023/04/01]) & !tag(noauto)
+;     [Assets:Budget:Current:SBIMF]                                      6500 INR
+;     [Assets:Budget:Accrued:Insurance:Others]                              0 INR
+;     [Assets:Sbi:Account:Virtual]                                      -6500 INR
+
+********************************************************************************
+;                                   |
+; Extra         10000               |
+; Rent          12000               |
+; Retirement     8000               |
+; Household      7000               |
+; Insurance      6000               |
+; Trip           5000               |
+; Bills          2000               |
+; Gifts          1500               |
+; Books          1500               |
+; House1-Exp     1000               |
+; Bike-servicing 1000               |
+; Amma            200               |
+; -------------------               |
+; Total         55000               |
+; -------------------               |
+;                                   |
+*********************************************************************************

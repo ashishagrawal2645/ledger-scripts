@@ -1,0 +1,49 @@
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+; NoL2B begin
+~ Yearly
+    Expenses:Auto:Repair        $500.00
+    Assets
+; NoL2B end
+
+account Assets:Test1
+    note Test account
+    alias food
+    default
+
+account Liabilities:CreditCard
+
+C 1.00 Mb = 1024 Kb ; NoL2B
+
+; NoL2B begin
+account Assets:Test2
+    note Test account
+    alias food
+    default
+; NoL2B end
+
+2018-03-17 * Test 1
+    Assets:Test1                       10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+; NoL2B begin
+2018-03-17 * Test 2
+    Assets:Test2
+    Equity:Opening-Balance            -10.00 EUR
+
+; NoL2B end
+2018-03-17 * Test 3
+    Assets:Test3                       10.00 EUR
+    Equity:Opening-Balance
+
+; L2Bonly begin
+;2014-07-09 event "location" "Paris, France"
+; 2018-09-01 event "location" "Bologna, Italy"
+; L2Bonly end
+
+; 2013-11-03 note Liabilities:CreditCard "Called about fraud" ; L2Bonly
+# 2013-11-03 note Liabilities:CreditCard "Called about fraud" ; L2Bonly
+*2013-11-03 note Liabilities:CreditCard "Called about fraud" ; L2Bonly
+

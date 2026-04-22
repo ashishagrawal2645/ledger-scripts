@@ -1,0 +1,97 @@
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+account Assets:Test
+account Equity:Opening-Balance
+
+commodity EUR
+commodity GBP
+
+2018-03-18 * Payee Foo
+    ; payee: Foo
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-18 * Payer Bar
+    ; payer: Bar
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-18 * Oyster card top-up
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+; case insensitive match
+2018-03-18 * oyster card top-up
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-18 * Supermarket (Tesco)
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2018-03-22 * Marriott reward1: test (£10.00)
+    Assets:Test                        10.00 GBP
+    Equity:Opening-Balance            -10.00 GBP
+
+2018-03-22 * Marriott reward2: test (£10.00)
+    Assets:Test                        10.00 GBP
+    Equity:Opening-Balance            -10.00 GBP
+
+2018-03-26 * Payee from metadata
+    ; X-Payee: MK2
+    Assets:Test                        10.00 GBP
+    Equity:Opening-Balance            -10.00 GBP
+
+2018-03-26 * Payer from metadata
+    ; X-Payer: Martin
+    Assets:Test                        10.00 GBP
+    Equity:Opening-Balance            -10.00 GBP
+
+; Interaction of payee_split and payee_tag
+2018-03-31 * Supermarket (Tesco)
+    ; X-Payee: MyEmployer
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+; Interaction of payee_match and payee_tag
+2018-03-31 * Oyster card top-up
+    ; X-Payee: MyEmployer
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2020-10-09 * Payee Foo  ; payee: Foo
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+apply tag payee: Bar
+
+2020-10-09 * Payee Bar
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+end apply tag
+
+2020-10-15 * No payee
+    Assets:Test                        10.00 EUR
+        ; payee: Foo
+    Equity:Opening-Balance            -10.00 EUR
+
+2020-11-18 * Payee
+    ; thing: My narration
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2020-11-18 * Payee
+    ; payee: My payee
+    ; thing: My narration
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+
+2020-11-18 * Payee
+    ; thing: My narration
+    ; payee: My payee
+    Assets:Test                        10.00 EUR
+    Equity:Opening-Balance            -10.00 EUR
+

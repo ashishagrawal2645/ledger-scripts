@@ -1,0 +1,57 @@
+# EditorConfig: http://EditorConfig.org
+
+# SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# top-most EditorConfig file
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[Makefile]
+indent_style = tab
+
+[*.bat]
+indent_size = 4
+indent_style = space
+
+[*.ledger]
+indent_size = 4
+indent_style = space
+
+[*.beancount]
+indent_size = 2
+indent_style = space
+
+[*.md]
+indent_size = 4
+indent_style = space
+
+[*.yaml]
+indent_style = space
+indent_size = 2
+max_line_length = off
+
+[tests/accounts.ledger]
+trim_trailing_whitespace = false
+
+[tests/aux-date.ledger]
+trim_trailing_whitespace = false
+
+[tests/comments.beancount]
+trim_trailing_whitespace = false
+
+[tests/comments.ledger]
+trim_trailing_whitespace = false
+
+[tests/metadata.ledger]
+trim_trailing_whitespace = false
+
+[tests/spacing.ledger]
+trim_trailing_whitespace = false
+

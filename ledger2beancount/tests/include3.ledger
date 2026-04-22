@@ -1,0 +1,8 @@
+; SPDX-FileCopyrightText: © 2018 Martin Michlmayr <tbm@cyrius.com>
+;
+; SPDX-License-Identifier: GPL-3.0-or-later
+
+2018-03-28 * Include3
+    Assets:Include3a                    10.00 "INC3"
+    Assets:Include3b
+

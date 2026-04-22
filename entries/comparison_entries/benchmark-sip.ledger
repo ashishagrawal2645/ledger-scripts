@@ -1,0 +1,225 @@
+; bse 500 dummy transaction goes here the day I buy with the same date and same amount
+; it will be excluded from main ledger to not cause any issues
+; will be used to show performance against benchmark
+
+; 2023/10/01 Opening balances
+; 	Equity:MFs:Low-Volatility                                         1.000 NLV {23566.35 INR} @ 23566.35 INR
+; 	Equity:MFs:LargeMidCap                                            1.000 LMC {11487.45 INR} @ 11487.45 INR
+; 	Equity:MFs:Midcap-Momentum                                        1.000 MCM {40981.83 INR} @ 40981.83 INR
+; 	Equity:Gold:Bar                                                   1.000 PCS {0.00 INR} @ 0.00 INR
+; 	Equity:Gold:Bonds                                                 1.000 SGB {0.00 INR} @ 0.00 INR
+; 	Equity:Others                                                 -23566.35 INR
+; 	Equity:Adjustments
+
+2024/04/04 Benchmark investment
+	Equity:MFs:Benchmark                                              4.441 NIFTY {22514.65 INR} @ 22514.65 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                12.44 INR
+
+2024/05/06 Benchmark investment
+	Equity:MFs:Benchmark                                              4.455 NIFTY {22442.70 INR} @ 22442.70 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                17.77 INR
+
+2024/06/04 Benchmark investment
+	Equity:MFs:Benchmark                                              4.569 NIFTY {21884.50 INR} @ 21884.50 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                 9.72 INR
+
+2024/07/04 Benchmark investment
+	Equity:MFs:Benchmark                                              4.115 NIFTY {24302.15 INR} @ 24302.15 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                -3.35 INR
+
+2024/08/05 Benchmark investment
+	Equity:MFs:Benchmark                                              4.157 NIFTY {24055.60 INR} @ 24055.60 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                 0.87 INR
+
+2024/09/04 Benchmark investment
+	Equity:MFs:Benchmark                                              3.967 NIFTY {25206.25 INR} @ 25206.25 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                 6.81 INR
+
+2024/10/04 Benchmark investment
+	Equity:MFs:Benchmark                                              3.997 NIFTY {25014.60 INR} @ 25014.60 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                16.64 INR
+
+2024/11/04 Benchmark investment
+	Equity:MFs:Benchmark                                              4.167 NIFTY {23995.35 INR} @ 23995.35 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                11.38 INR
+
+2024/12/04 Benchmark investment
+	Equity:MFs:Benchmark                                              4.087 NIFTY {24467.45 INR} @ 24467.45 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                 1.53 INR
+
+2025/01/06 Benchmark investment
+	Equity:MFs:Benchmark                                              8.468 NIFTY {23616.05 INR} @ 23616.05 INR
+	Equity:Accounting                                            -200000.00 INR
+	Equity:Adjustments                                                19.29 INR
+
+2025/02/04 Benchmark investment
+	Equity:MFs:Benchmark                                              4.212 NIFTY {23739.25 INR} @ 23739.25 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                10.28 INR
+
+2025/02/11 Benchmark investment
+	Equity:MFs:Benchmark                                              4.334 NIFTY {23071.80 INR} @ 23071.80 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                 6.82 INR
+
+2025/03/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.808 NIFTY {22119.30 INR} @ 22119.30 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                                 8.31 INR
+
+2025/03/04 Benchmark investment
+	Equity:MFs:Benchmark                                              3.396 NIFTY {22082.65 INR} @ 22082.65 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                 7.32 INR
+
+2025/03/11 Benchmark investment
+	Equity:MFs:Benchmark                                              6.667 NIFTY {22497.90 INR} @ 22497.90 INR
+	Equity:Accounting                                            -150000.00 INR
+	Equity:Adjustments                                                 6.50 INR
+
+2025/04/01 Benchmark investment
+	Equity:MFs:Benchmark                                              4.317 NIFTY {23165.70 INR} @ 23165.70 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                -6.33 INR
+
+2025/04/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.720 NIFTY {23250.10 INR} @ 23250.10 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                                 9.83 INR
+
+2025/04/04 Benchmark investment
+	Equity:MFs:Benchmark                                              3.274 NIFTY {22904.45 INR} @ 22904.45 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                10.83 INR
+
+2025/04/07 Benchmark investment
+	Equity:MFs:Benchmark                                              4.061 NIFTY {22161.60 INR} @ 22161.60 INR
+	Equity:Accounting                                             -90000.00 INR
+	Equity:Adjustments                                                 1.74 INR
+
+2025/05/05 Benchmark investment
+	Equity:MFs:Benchmark                                              4.701 NIFTY {24461.15 INR} @ 24461.15 INR
+	Equity:Accounting                                            -115000.00 INR
+	Equity:Adjustments                                                 8.13 INR
+
+2025/06/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.630 NIFTY {24542.50 INR} @ 24542.50 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                                -4.27 INR
+
+2025/06/04 Benchmark investment
+	Equity:MFs:Benchmark                                              3.046 NIFTY {24620.20 INR} @ 24620.20 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                 6.87 INR
+
+2025/06/13 Benchmark investment
+	Equity:MFs:Benchmark                                              6.068	NIFTY {24718.60 INR} @ 24718.60 INR
+	Equity:Accounting                                            -150000.00 INR
+	Equity:Adjustments                                                 7.54 INR
+
+2025/07/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.574 NIFTY {25405.30 INR} @ 25405.30 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                                12.06 INR
+
+2025/07/04 Benchmark investment
+	Equity:MFs:Benchmark                                              2.946 NIFTY {25461.00 INR} @ 25461.00 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                -8.11 INR
+
+2025/08/04 Benchmark investment
+	Equity:MFs:Benchmark                                              4.652 NIFTY {24722.75 INR} @ 24722.75 INR
+	Equity:Accounting                                            -115000.00 INR
+	Equity:Adjustments                                               -10.23 INR
+
+2025/09/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.618 NIFTY {24715.05 INR} @ 24715.05 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                                11.05 INR
+
+2025/09/04 Benchmark investment
+	Equity:MFs:Benchmark                                              3.032 NIFTY {24734.30 INR} @ 24734.30 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                 5.60 INR
+
+2025/09/26 Benchmark investment
+	Equity:MFs:Benchmark                                              4.056 NIFTY {24654.70 INR} @ 24654.70 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                 0.54 INR
+
+2025/10/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.607 NIFTY {24894.25 INR} @ 24894.25 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                                -5.06 INR
+
+2025/10/06 Benchmark investment
+	Equity:MFs:Benchmark                                              2.991 NIFTY {25077.65 INR} @ 25077.65 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                -7.25 INR
+
+2025/11/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.553 NIFTY {25763.35 INR} @ 25763.35 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                               -10.48 INR
+
+2025/11/04 Benchmark investment
+	Equity:MFs:Benchmark                                              2.930 NIFTY {25597.65 INR} @ 25597.65 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                -1.11 INR
+
+2025/11/11 Benchmark investment
+	Equity:MFs:Benchmark                                              3.892 NIFTY {25694.95 INR} @ 25694.95 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                -4.75 INR
+
+2025/12/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.539 NIFTY {25986.00 INR} @ 25986.00 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                                 7.55 INR
+
+2025/12/04 Benchmark investment
+	Equity:MFs:Benchmark                                              2.881 NIFTY {26033.75 INR} @ 26033.75 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                -3.23 INR
+
+2025/12/09 Benchmark investment
+	Equity:MFs:Benchmark                                              3.870 NIFTY {25839.65 INR} @ 25839.65 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                 0.55 INR
+
+2025/12/22 Benchmark investment
+	Equity:MFs:Benchmark                                              3.821 NIFTY {26172.40 INR} @ 26172.40 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                -4.74 INR
+
+2026/01/05 Benchmark investment
+	Equity:MFs:Benchmark                                              4.381 NIFTY {26250.30 INR} @ 26250.30 INR
+	Equity:Accounting                                            -115000.00 INR
+	Equity:Adjustments                                                -2.56 INR
+
+2026/01/20 Benchmark investment
+	Equity:MFs:Benchmark                                              3.963 NIFTY {25232.50 INR} @ 25232.50 INR
+	Equity:Accounting                                            -100000.00 INR
+	Equity:Adjustments                                                 3.60 INR
+
+2026/02/03 Benchmark investment
+	Equity:MFs:Benchmark                                              1.555 NIFTY {25727.55 INR} @ 25727.55 INR
+	Equity:Accounting                                             -40000.00 INR
+	Equity:Adjustments                                                -6.34 INR
+
+2026/02/04 Benchmark investment
+	Equity:MFs:Benchmark                                              2.910 NIFTY {25776.00 INR} @ 25776.00 INR
+	Equity:Accounting                                             -75000.00 INR
+	Equity:Adjustments                                                -8.16 INR
+
+
+
